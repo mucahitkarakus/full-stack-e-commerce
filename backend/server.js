@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const mainRoute = require('./routes/index');
 const port = 5000;
 
 dotenv.config();
@@ -15,18 +16,7 @@ const connect = async () => {
     }
 }
 
-
-
-app.get('/', (req, res) => {
-    const customers = [
-        { id: 1, firstName: 'John', lastName: 'Doe' },
-        { id: 2, firstName: 'Steve', lastName: 'Smith' },
-        { id: 3, firstName: 'Mary', lastName: 'Swanson' },
-    ];
-
-    res.json(customers);
-});
-
+app.use('/api', mainRoute)
 
 
 app.listen(port, () => {
