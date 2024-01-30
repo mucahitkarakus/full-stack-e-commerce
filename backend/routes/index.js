@@ -4,10 +4,12 @@ const router = express.Router();
 // Diğer Route Dosyalarını İçe Aktarma
 const productRoute = require('./products');
 const categoryRoute = require('./categories');
+const userRoute = require('./auth');
+
 
 // Her Route İlgili Yol Altında Kuşllanıyoruz
-
 router.use('/categories', categoryRoute)
+router.use('/auth', userRoute)
 router.use('/products', productRoute)
 
 module.exports = router;
