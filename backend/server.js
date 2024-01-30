@@ -16,6 +16,11 @@ const connect = async () => {
     }
 }
 
+//Middleware
+app.use(express.json());
+
+
+
 app.use('/api', mainRoute)
 
 
