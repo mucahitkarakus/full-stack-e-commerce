@@ -13,7 +13,8 @@ router.post('/', async (req, res) => {
             img
         })
         await newCategory.save()
-        res.status(200).send('ok')
+        res.status(201).send(newCategory)
+        
     } catch (error) {
         console.log(error)
     }
