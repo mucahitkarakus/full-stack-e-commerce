@@ -3,12 +3,18 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
+const generateRandomAvatar = () => {
+    const randomAvatar = Math.floor(Math.random() * 71)
+    return `https://i.pravatar.cc/300?img=${randomAvatar}`
+}
+
 
 
 // Register
 router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body
+        const defaultAvatar = generateRandomAvatar()
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -19,7 +25,8 @@ router.post('/register', async (req, res) => {
         const newUser = await new User({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            avatar: defaultAvatar
         });
 
         await newUser.save();
