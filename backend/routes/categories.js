@@ -23,14 +23,46 @@ router.get('/', async (req, res) => {
     try {
         const categories = await Category.find()
         res.status(201).json(categories)
-
-        
-
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: 'Server Error' })
     }
 });
+
+// Tek Kategori (Single)
+router.get('/:categoryId', async (req, res) => {
+    try {
+        const categoryId = req.params.categoryId
+        try {
+            const category = await Category.findById(categoryId)
+            res.status(200).json(category)
+        } catch (error) {
+            console.log(error)
+            res.status(404).json({ error: 'Category Not found' })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Server Error' })
+    }
+});
+
+// Kategori Güncelleme (Update)
+
+router.put('/:categoryId', async (req, res) => {
+    try {
+        const categoryId = req.params.categoryId
+        const updates = req.body
+
+        const updatedCategory = await Category.findByIdAndUpdate(categoryId, updates)
+        res.status(200).json(updatedCategory)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Server Error' })
+    }
+
+})
+
 
 
 module.exports = router;
