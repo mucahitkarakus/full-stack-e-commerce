@@ -53,7 +53,11 @@ router.put('/:categoryId', async (req, res) => {
         const categoryId = req.params.categoryId
         const updates = req.body
 
-        const updatedCategory = await Category.findByIdAndUpdate(categoryId, updates)
+        const existingCategory = await Category.findById(categoryId)
+
+        if (!existingCategory) return res.status(404).json({ error: 'Category Not Found' })
+
+        const updatedCategory = await Category.findByIdAndUpdate(categoryId, updates, { new: true })
         res.status(200).json(updatedCategory)
 
     } catch (error) {
