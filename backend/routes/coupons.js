@@ -62,5 +62,23 @@ router.put('/:couponId', async (req, res) => {
     }
 })
 
+// Kupon Silme (Delete)
+
+router.delete('/:couponId', async (req, res) => {
+    try {
+        const couponId = req.params.couponId
+
+        const deletedCoupon = await Coupon.findByIdAndDelete(couponId)
+
+        if (!deletedCoupon) {
+            return res.status(404).json({ error: 'Coupon Not Found' })
+        }
+        res.status(200).json(deletedCoupon)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Server Error' })
+    }
+})
+
 
 module.exports = router;
